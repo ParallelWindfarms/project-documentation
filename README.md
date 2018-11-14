@@ -16,6 +16,9 @@ reference-section-title: References
 
 - [parallel-in-time.org](https://parallel-in-time.org/)
 - [Devito](https://www.devitoproject.org/) DSL for writing finite difference solvers.
+- [Two branches of OpenFOAM](https://cfd.direct/, https://www.openfoam.com/)
+- [OpenFOAM](https://wiki.openfoam.com/%223_weeks%22_series) OpenFOAM '3 week' series.
+- [Basic programming in OpenFOAM](https://github.com/UnnamedMoose/BasicOpenFOAMProgrammingTutorials)
 
 # Log
 
