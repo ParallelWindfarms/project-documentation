@@ -16,9 +16,9 @@ Our main question here is just how to refine a given grid in OpenFOAM:
 blocks
 (
     hex (0 1 2 3 4 5 6 7) (1000 1 1) simpleGrading (1 1 1)
-    \\ hex, shape, hexaedron in this case
-    \\ (0 1 ...), ordered list of vertices (defined apart)
-    \\ (1000 1 1) resolution in x, y and z
+    // hex, shape, hexaedron in this case
+    // (0 1 ...), ordered list of vertices (defined apart)
+    // (1000 1 1) resolution in x, y and z
 );
 ```
 
