@@ -107,3 +107,11 @@ blocks
 The result looks like:
 
 ![](img/fine-coarse.png)
+
+## Using `refineMesh`
+
+Dealing with geometrical features via text files can be pretty complicated. Luckily, OpenFOAM provides some tools for helping with geometrical operations. `refineMesh` is a good example.
+
+When executed without arguments, it creates a new grid in a time different than the initial (typically t = 0.005, although this depends on the time resolution). Using `refineMesh -overwrite` the initial state is overwritten (typically t = 0).
+
+It is important to note that `refineMesh` does exactly what it says: it refines the mesh, and nothing else. The underlying fields have to be recalculated (for instance, by running `icoFoam` again) or interpolated (see `mapFields`, tutorial [here](https://www.youtube.com/watch?v=qUMPdkvKBS8)).
