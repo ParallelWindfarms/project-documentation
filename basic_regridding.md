@@ -114,4 +114,40 @@ Dealing with geometrical features via text files can be pretty complicated. Luck
 
 When executed without arguments, it creates a new grid in a time different than the initial (typically t = 0.005, although this depends on the time resolution). Using `refineMesh -overwrite` the initial state is overwritten (typically t = 0).
 
-It is important to note that `refineMesh` does exactly what it says: it refines the mesh, and nothing else. The underlying fields have to be recalculated (for instance, by running `icoFoam` again) or interpolated (see `mapFields`, tutorial [here](https://www.youtube.com/watch?v=qUMPdkvKBS8)).
+It is important to note that `refineMesh` does exactly what it says: it refines the mesh, and nothing else. The underlying fields have to be recalculated (for instance, by running `icoFoam` again) or interpolated (see `mapFields` below).
+
+### Interpolate fields with `mapFields`
+This subsection is based in this [tutorial](https://www.youtube.com/watch?v=qUMPdkvKBS8).
+
+A typical workflow requiring regridding and interpolating the fields is the reuse of a stationary solution, obtained by a long simulation, as the initial state for a new problem with the same geometry but a denser grid. We will exemplify it with the tutorial available in `tutorials/incompressible/icoFoam/elbow`.
+
+1. Copy the example to your working directory
+   ```
+   cp [open foam directory]/tutorials/incompressible/icoFoam/elbow [working directory]
+   ```
+2. Create the coarse and the fine directories
+   ```
+   cp -r elbow/ coarse/
+   cp -r elbow/ fine/
+   ```
+3. Solve the coarse case
+   ```
+   cd coarse
+   fluentMeshToFoam elbow.msh # Create the mesh
+   icoFoam # Simulate the times
+   ```
+4. Create and refine the mesh corresponding to `fine`
+   ```
+   cd ../fine
+   fluentMeshToFoam elbow.msh # Create the mesh
+   refineMesh -overwrite # If overwrite is omited, a new time snapshot is created
+   ```
+5. Interpolate last state in `coarse` as initial condition for `fine`
+   ```
+   mapFields -consistent -sourceTime 'latestTime' ../coarse/
+   # Use -consistent if the boundaries in fine and coarse are the same
+   ```
+6. Solve
+   ```
+   icoFoam
+   ```
